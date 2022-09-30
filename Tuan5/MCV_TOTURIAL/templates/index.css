@@ -1,0 +1,15 @@
+h1{
+    color: red;
+}
+
+form{
+    padding: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    margin: auto;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ON GIUA KY</title>
+        <link rel="stylesheet" href="index.css" >
+    </head>
+    <body>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="text" name="ma_sp" placeholder ="Nhập mã sản phẩm">
+            <input type="text" name="ten_sp" placeholder="Nhập tên sản phẩm" >
+            <input type="text" name="sl_sp" placeholder="Nhập số lượng sản phẩm" >
+            <input type="submit" value="Thêm sản phẩm mới">
+        </form>
+        <table>
+            <tr>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Số lượng sản phẩm</th>
+            </tr>
+            <% for (let i=0;i<data.length;i++) { %>
+                <tr>
+                    <td><%=data[i].ma_sp%></td>
+                    <td><%=data[i].ten_sp%></td>
+                    <td><%=data[i].sl_sp%></td>
+                </tr>
+            <%  } %>
+        </table>
+    </body>
+</html>
