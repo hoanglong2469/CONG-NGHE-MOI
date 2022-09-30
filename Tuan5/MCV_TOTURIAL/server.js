@@ -13,21 +13,81 @@ app.set('view engine','ejs')
 app.set('views','./templates')
 
 // //config aws dynamodb
-// const AWS =require('aws-sdk')
-// const config=new AWS.Config({
-//     accessKeyId:'AKIA6PDLSOFCLR4FCEEE',
-//     secretAccessKey:'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',
-//     region:'ap-southeast-1'
-// });
-// AWS.config=config;
+const AWS =require('aws-sdk');
+const config=new AWS.Config({
+    accessKeyId:'AKIA6PDLSOFCLR4FCEEE',
+    secretAccessKey:'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',
+    region:'ap-southeast-1'
+});
+AWS.config=config;
+
+const docClient = new AWS.DynamoDB.DocumentClient();
+
+const tableName='SanPham';
 
 app.get('/', (req, res) => {
- return res.render('index',{data,data})
+ const params={
+    TableName: tableName,
+ };
+
+ docClient.scan(params,(err,data)=>{
+    if(err){
+        res.send('Internal Server Error');
+    }else{
+        return res.render('index',{sanPhams:data.Items});
+    }
+ })
 })
 
-app.post('/',upload.fields([]),(req,res)=>{
- data.push(req.body)
- return res.redirect('/');
+app.post("/", upload.fields([]), (req, res) => {
+    const { ma_sp, ten_sp,sl_sp } = req.body;
+    const params = {
+        TableName: tableName,
+        Item: {
+            "ma_sp": ma_sp,
+            "ten_sp": ten_sp,
+            "sl_sp": sl_sp
+        },
+    };
+
+    docClient.put(params, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.send("Inrenal server error");
+        } else {
+            return res.redirect("/");
+        }
+    });
+});
+
+app.post('/delete',upload.fields([]),(req,res)=>{
+    const listItems = Object.keys(req.body);
+    if(listItems == 0){
+        return res.redirect("/");
+    }
+
+    function onDeleteItem(index){
+        const params = {
+            TableName: tableName,
+            Key:{
+                "ma_sp":listItems[index]
+            }
+        }
+        docClient.delete(params,(err,data)=>{
+            if (err) {
+                console.log(err);
+                res.send("Inrenal server error");
+            } else {
+                if(index > 0){
+                    onDeleteItem(index-1);
+                } else{
+                    return res.redirect("/");
+                }
+                }
+        })
+    }
+
+    onDeleteItem(listItems.length-1);
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
