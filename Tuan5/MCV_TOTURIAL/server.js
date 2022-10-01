@@ -2,6 +2,7 @@ const port = 3000
 
 const express = require('express')
 const app = express()
+const {v4:uuid}=require("uuid");
 
 const data= require('./store')
 
@@ -15,8 +16,8 @@ app.set('views','./templates')
 // //config aws dynamodb
 const AWS =require('aws-sdk');
 const config=new AWS.Config({
-    accessKeyId:'AKIA6PDLSOFCLR4FCEEE',
-    secretAccessKey:'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',
+    accessKeyId:'',
+    secretAccessKey:'',
     region:'ap-southeast-1'
 });
 AWS.config=config;
@@ -89,5 +90,15 @@ app.post('/delete',upload.fields([]),(req,res)=>{
 
     onDeleteItem(listItems.length-1);
 })
+
+const storage=multer.memoryStorage({
+    destination(req,file,callback){
+        callback(null,'');
+    },
+})
+
+function checkFile(file,cb){
+    
+}
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
