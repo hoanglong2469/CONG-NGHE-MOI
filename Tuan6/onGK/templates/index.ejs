@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>KIEM TRA THUONG KY</title>
+        <link rel="stylesheet" href="index.css" >
+    </head>
+    <body>
+        <div class="content">
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <input type="number" name="stt" placeholder ="STT">
+                <input type="text" name="ma_sv" placeholder ="Nhập mã sinh viên">
+                <input type="text" name="ten_sv" placeholder="Nhập tên sinh viên" >
+                <input type="text" name="ns_sv" placeholder="Nhập ngày sinh" >
+                <input type="text" name="lop_sv" placeholder="Nhập lớp" >
+                <input type="submit" value="Thêm">
+                
+            </form>
+            <form id="delete" method="POST" action="/delete" enctype="multipart/form-data">
+                <div class=""title>
+                    <h5>Danh sách sinh viên</h5> 
+                    <input type="submit" value="Xoá"/>
+                </div>
+                <table border="1">
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã sinh viên</th>
+                        <th>Tên sinh viên</th>
+                        <th>Ngày sinh</th>
+                        <th>Lớp</th>
+                        <th>Chọn</th>
+                    </tr>
+                    <% for (let i=0;i<sinhViens.length;i++) { %>
+                        <tr>
+                            <td><%=sinhViens[i].stt%></td>
+                            <td><%=sinhViens[i].ma_sv%></td>
+                            <td><%=sinhViens[i].ten_sv%></td>
+                            <td><%=sinhViens[i].ns_sv%></td>
+                            <td><%=sinhViens[i].lop_sv%></td>
+                            <td><input type="checkbox" name="<%=sinhViens[i].ma_sv%>"></td>
+                        </tr>
+                    <%  } %>
+                </table>
+            </form>
+        </div>
+        
+    </body>
+</html>

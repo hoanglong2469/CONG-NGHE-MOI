@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="content">
-            <form action="/" method="POST" enctype="multipart/form-data">
+            <form idi="create" action="/" method="POST" enctype="multipart/form-data">
                 <input type="text" name="ma_sp" placeholder ="Nhập mã sản phẩm">
                 <input type="text" name="ten_sp" placeholder="Nhập tên sản phẩm" >
                 <input type="number" name="sl_sp" placeholder="Nhập số lượng sản phẩm" >
@@ -32,7 +32,7 @@
                             <td><%=sanPhams[i].ma_sp%></td>
                             <td><%=sanPhams[i].ten_sp%></td>
                             <td><%=sanPhams[i].sl_sp%></td>
-                            <td><img width="50px" src="<%sanPhams[i].image_url%>"/></td>
+                            <td><img width="50px" src="<%=sanPhams[i].image_url%>"/></td>
                             <td><input type="checkbox" name="<%=sanPhams[i].ma_sp%>"></td>
                         </tr>
                     <%  } %>
